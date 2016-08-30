@@ -1,8 +1,28 @@
+
 <!DOCTYPE html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
     <script src="app.js"></script>
+    <script id="game-template" type="x-mustache-template">
+        <section id="row1">
+            {{ #wordToGuess }} 
+            <p class="transparent">{{ . }}</p> 
+            {{ /wordToGuess }}
+        </section>
+        <section id="row2">
+            
+        </section>
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Page loaded</h1>
+    <h1>HangPerson</h1>
+    <section id="game">
+        
+    </section>
+    <section id="controls">
+        <input type="text" placeholder="Guess a letter...">
+        <button>Guess</button>
+    </section>
 </body>

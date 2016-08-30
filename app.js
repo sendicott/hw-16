@@ -1,3 +1,4 @@
+
 let possibleWords = ["coat", "knee", "arithmetic", "order", "chicken", "skin", "stick", "trick", "zebra", "hospital", "week", "creature"];
 
 /**
@@ -14,16 +15,41 @@ let possibleWords = ["coat", "knee", "arithmetic", "order", "chicken", "skin", "
 
 function pickWord(wordArray) {
     let randomNumber = Math.floor(Math.random()* wordArray.length);
-    return wordArray[randomNumber];
+    return wordArray[randomNumber].split("");
 }
 
 /**
  * returns the number of guesses the user gets based on the word 
  * that's passed in.
  * 
+ * 1. return 9
  * 
+ * @param { String } chosenWord - word to be guessed, currently 
+ *      does not impact function
+ * @returns { Number } number of wrong guesses allowed to user
  */
 
 function numGuesses(chosenWord) {
-
+    return 9;
 }
+
+window.addEventListener('load', function() {
+    let parent = document.querySelector("#game");
+    let wordToGuess = pickWord(possibleWords);
+    let template = document.querySelector("#game-template").innerHTML;
+    let rows = document.createElement('section');
+    rows.innerHTML = Mustache.render(template, { wordToGuess: wordToGuess });
+    parent.appendChild(rows);
+    let inputValue = document.querySelector("input").value;
+    let button = document.querySelector('button');
+    // let letters = document.querySelector('#letters');
+    button.addEventListener('click', function() {
+        for (i = 0; i < wordToGuess.length; i++) {
+            if (inputValue = wordToGuess[i]) {
+                //remove "transparent" class from <p> element
+                console.log(wordToGuess[i]);
+            }
+        }
+    });
+});
+

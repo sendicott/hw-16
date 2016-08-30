@@ -40,14 +40,15 @@ window.addEventListener('load', function() {
     let rows = document.createElement('section');
     rows.innerHTML = Mustache.render(template, { wordToGuess: wordToGuess });
     parent.appendChild(rows);
-    let inputValue = document.querySelector("#input").value;
+    // let inputValue = document.querySelector("#input").value;
     let button = document.querySelector('button');
     button.addEventListener('click', function() {
-        console.log(inputValue); // isn't returning any value
-        for (i = 0; i < wordToGuess.length; i++) {
+        let inputValue = document.querySelector("#input").value;
+        let paragraph = document.querySelector("p");
+        console.log(inputValue);
+        for (let i = 0; i < wordToGuess.length; i++) {
             if (inputValue === wordToGuess[i]) {
-                //remove "transparent" class from <p> element
-                console.log(wordToGuess[2]);
+                paragraph.classList.remove("transparent");
             }
         }
     });

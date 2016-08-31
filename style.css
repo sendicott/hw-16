@@ -22,16 +22,19 @@ h1:first-child {
     padding: 15px 25px;
 }
 
+/*#row2 div {
+    display: flex-inline;
+    justify-content: space-around;
+    border: 2px solid black;
+}*/
+
 .transparent {
     color: transparent;
 }
 
-.blueViolet {
-    color: #4F57AA;
-}
-
 #controls {
     text-align: center;
+    margin-top: 50px;
 }
 
 input {
@@ -55,4 +58,14 @@ button:hover {
     color: white;
     background-color: #4F57AA;
     cursor: pointer;
+}
+
+#graveyard {
+    width: 100%;
+}
+
+#graveyard p {
+    display: inline-flex;
+    justify-content: center;
+    margin: 0 0 10px 0;
 }

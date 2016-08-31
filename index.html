@@ -6,15 +6,18 @@
     <script id="game-template" type="x-mustache-template">
         <section id="row1">
             {{ #wordToGuess }} 
-                <p class="transparent">{{ . }}</p>
+                <p class="letter transparent">{{ . }}</p>
             {{ /wordToGuess }}
         </section>
         <section id="row2">
             <div id="graveyard">
                 <h1>Guess Graveyard</h1>
+                {{ #graveyard }} 
+                    <p>{{ . }}</p>
+                {{ /graveyard }}
             </div>
             <div id="guessesLeft">
-                
+                {{ lives }}
             </div>
         </section>
     </script>

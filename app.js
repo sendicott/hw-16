@@ -14,7 +14,7 @@ let possibleWords = ["coat", "knee", "arithmetic", "order", "chicken", "skin", "
  */
 
 function pickWord(wordArray) {
-    let randomNumber = Math.floor(Math.random()* wordArray.length);
+    let randomNumber = Math.floor(Math.random() * wordArray.length);
     return wordArray[randomNumber].split("");
 }
 
@@ -33,40 +33,47 @@ function numGuesses(chosenWord) {
     return 9;
 }
 
-// function wins()
-
-
-window.addEventListener('load', function() {
+// Goal: modify the DOM
+function render(word, listOfWrongs) {
     let parent = document.querySelector("#game");
     let template = document.querySelector("#game-template").innerHTML;
+    parent.innerHTML = Mustache.render(template, {
+        wordToGuess: word,
+        graveyard: listOfWrongs,
+        lives: numGuesses() - listOfWrongs.length
+    });
+}
+
+window.addEventListener('load', function () {
     let wordToGuess = pickWord(possibleWords);
-    let rows = document.createElement('section');
-    rows.innerHTML = Mustache.render(template, { wordToGuess: wordToGuess });
-    parent.appendChild(rows);
-    // render(wordToGuess);
     console.log(wordToGuess);
     let wrongGuessArray = [];
     let rightGuessArray = [];
-
+    render(wordToGuess, wrongGuessArray);
 
     let button = document.querySelector('button');
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         let inputValue = document.querySelector("#input").value;
-        let paragraph = document.querySelectorAll("p");
- 
+        if (wrongGuessArray.indexOf(inputValue) !== -1 || rightGuessArray.indexOf(inputValue) !== -1) {
+            console.log("You've already guessed that");
+            document.querySelector("#input").value = "";
+            return
+        }
+
         let check = false;
         for (let i = 0; i < wordToGuess.length; i++) {
             if (inputValue === wordToGuess[i]) {
-                paragraph[i].classList.remove('transparent');
                 rightGuessArray.push(inputValue);
                 check = true;
-            } 
+                console.log("Right Guesses: " + rightGuessArray);
+            }
         }
         if (check === false) {
             wrongGuessArray.push(inputValue);
-            console.log(wrongGuessArray);
+            console.log("Wrong Guesses: " + wrongGuessArray);
         }
         check = false;
+
         if (wrongGuessArray.length >= 9) {
             console.log("You lose");
         }
@@ -74,26 +81,17 @@ window.addEventListener('load', function() {
         if (rightGuessArray.length === wordToGuess.length) {
             console.log("You win");
         }
+
+        render(wordToGuess, wrongGuessArray);
+        let paragraph = document.querySelectorAll(".letter");
+
+        for (let i = 0; i < wordToGuess.length; i++) {
+            for (let j = 0; j <rightGuessArray.length; j++) {
+                if (rightGuessArray[j] === wordToGuess[i]) {
+                    paragraph[i].classList.remove('transparent');
+                }
+            }
+        }
+        document.querySelector("#input").value = "";
     });
 });
-
-
-
-
-
-// function prepare(letter) {
-//     return {
-//         letter: letter,
-//         visible: false,
-//     };
-// }
-
-// function render(letters) {
-//     let parent = document.querySelector("#game");
-//     let template = document.querySelector("#game-template").innerHTML;
-//     let rows = document.createElement('section');
-
-//     // console.log(letters.map(showIt));
-//     rows.innerHTML = Mustache.render(template, { wordToGuess: letters.map(prepare) });
-//     parent.appendChild(rows);
-// }

@@ -46,7 +46,7 @@ window.addEventListener('load', function() {
     // render(wordToGuess);
     console.log(wordToGuess);
     let wrongGuessArray = [];
-
+    let rightGuessArray = [];
 
 
     let button = document.querySelector('button');
@@ -58,6 +58,7 @@ window.addEventListener('load', function() {
         for (let i = 0; i < wordToGuess.length; i++) {
             if (inputValue === wordToGuess[i]) {
                 paragraph[i].classList.remove('transparent');
+                rightGuessArray.push(inputValue);
                 check = true;
             } 
         }
@@ -68,6 +69,10 @@ window.addEventListener('load', function() {
         check = false;
         if (wrongGuessArray.length >= 9) {
             console.log("You lose");
+        }
+
+        if (rightGuessArray.length === wordToGuess.length) {
+            console.log("You win");
         }
     });
 });

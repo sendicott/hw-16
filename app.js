@@ -33,24 +33,62 @@ function numGuesses(chosenWord) {
     return 9;
 }
 
+// function wins()
+
+
 window.addEventListener('load', function() {
     let parent = document.querySelector("#game");
-    let wordToGuess = pickWord(possibleWords);
     let template = document.querySelector("#game-template").innerHTML;
+    let wordToGuess = pickWord(possibleWords);
     let rows = document.createElement('section');
     rows.innerHTML = Mustache.render(template, { wordToGuess: wordToGuess });
     parent.appendChild(rows);
-    // let inputValue = document.querySelector("#input").value;
+    // render(wordToGuess);
+    console.log(wordToGuess);
+    let wrongGuessArray = [];
+
+
+
     let button = document.querySelector('button');
     button.addEventListener('click', function() {
         let inputValue = document.querySelector("#input").value;
-        let paragraph = document.querySelector("p");
-        console.log(inputValue);
+        let paragraph = document.querySelectorAll("p");
+ 
+        let check = false;
         for (let i = 0; i < wordToGuess.length; i++) {
             if (inputValue === wordToGuess[i]) {
-                paragraph.classList.remove("transparent");
-            }
+                paragraph[i].classList.remove('transparent');
+                check = true;
+            } 
+        }
+        if (check === false) {
+            wrongGuessArray.push(inputValue);
+            console.log(wrongGuessArray);
+        }
+        check = false;
+        if (wrongGuessArray.length >= 9) {
+            console.log("You lose");
         }
     });
 });
 
+
+
+
+
+// function prepare(letter) {
+//     return {
+//         letter: letter,
+//         visible: false,
+//     };
+// }
+
+// function render(letters) {
+//     let parent = document.querySelector("#game");
+//     let template = document.querySelector("#game-template").innerHTML;
+//     let rows = document.createElement('section');
+
+//     // console.log(letters.map(showIt));
+//     rows.innerHTML = Mustache.render(template, { wordToGuess: letters.map(prepare) });
+//     parent.appendChild(rows);
+// }
